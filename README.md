@@ -17,6 +17,7 @@ WinstonType - минималистичный, легковесный учебн�
 - [ ] Локальное сохранение статистики
 
 ### Структура проекта
+```
 WinstonType/
 ├── public/
 │   └── languages/       # JSON-словари для разных языков
@@ -34,6 +35,7 @@ WinstonType/
 ├── index.html           # Главная страница
 ├── package.json
 └── README.md            # Вы здесь
+```
 
 ### Стек
 - Нативный JavaScript, CSS, HTML
