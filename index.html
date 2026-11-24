@@ -1,101 +1,219 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="WinstonType - минималистичный тренажёр скорости и точности печати." />
-    <meta name="theme-color" content="#f4f7fb" />
-    <title>WinstonType - тренажёр печати</title>
-    <link rel="stylesheet" href="/src/css/style.css" />
-    <link rel="stylesheet" href="/src/css/themes.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WinstonType — минималистичный тренажёр скорости и точности печати.">
+    <meta name="theme-color" content="#f4f7fb">
+    <title>WinstonType — тренажёр печати</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/themes.css">
+</head>
+<body>
     <div class="app-shell">
-      <header class="topbar">
-        <a class="brand" href="#" aria-label="WinstonType - на главную">
-          <span class="brand-mark" aria-hidden="true"><span>W</span></span>
-          <span>Winston<span class="brand-accent">Type</span></span>
-        </a>
+        <header class="topbar">
+            <a class="brand" href="#" aria-label="WinstonType — на главную">
+                <span class="brand-mark" aria-hidden="true">
+                    <span>W</span>
+                </span>
+                <span>Winston<span class="brand-accent">Type</span></span>
+            </a>
+            <nav class="top-actions" aria-label="Настройки">
+                <label class="select-wrap">
+                    <span class="sr-only">Язык текста</span>
+                    <select id="language-select">
+                        <option value="ru" selected>Русский</option>
+                        <option value="en">English</option>
+                    </select>
+                </label>
+                <button
+                    class="icon-button"
+                    id="theme-toggle"
+                    type="button"
+                    aria-label="Включить тёмную тему"
+                    title="Сменить тему"
+                >
+                    <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3.5"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+                    </svg>
 
-        <nav class="top-actions" aria-label="Настройки">
-          <label class="select-wrap">
-            <span class="sr-only">Язык текста</span>
-            <select id="language-select" aria-label="Язык текста">
-              <option value="ru" selected>Русский</option>
-              <option value="en">English</option>
-            </select>
-          </label>
-          <button class="icon-button" id="theme-toggle" type="button" aria-label="Включить тёмную тему" title="Сменить тему">
-            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
-            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8 8 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/></svg>
-          </button>
-        </nav>
-      </header>
+                    <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.5 14.2A8 8 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/>
+                    </svg>
+                </button>
+            </nav>
+        </header>
+        <main>
+            <section class="intro" aria-labelledby="page-title">
+                <p class="eyebrow" id="page-title">Тренировка слепой печати</p>
+            </section>
 
-      <main>
-        <section class="intro" aria-labelledby="page-title">
-            <p class="eyebrow">Тренировка слепой печати</p>
-        </section>
+            <section class="trainer-card" id="trainer" aria-label="Тренажёр печати">
+                <div class="trainer-toolbar">
+                    <div class="mode-tabs" role="group" aria-label="Продолжительность теста">
+                        <button type="button" data-time="15">15 сек</button>
+                        <button type="button" data-time="30" class="active">30 сек</button>
+                        <button type="button" data-time="60">60 сек</button>
+                    </div>
+                    <button
+                        class="restart-button"
+                        id="restart-button"
+                        type="button"
+                        title="Начать заново (Enter)"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7"/>
+                        </svg>
+                        Заново
+                    </button>
+                </div>
+                <div class="stats-row" aria-live="polite">
+                    <div class="stat primary">
+                        <span id="timer">30</span>
+                        <small>секунд</small>
+                    </div>
 
-        <section class="trainer-card" id="trainer" aria-label="Тренажёр печати">
-          <div class="trainer-toolbar">
-            <div class="mode-tabs" role="group" aria-label="Продолжительность теста">
-              <button type="button" data-time="15">15 сек</button>
-              <button type="button" data-time="30" class="active">30 сек</button>
-              <button type="button" data-time="60">60 сек</button>
-            </div>
-            <button class="restart-button" id="restart-button" type="button" title="Начать заново (Enter)">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7"/></svg>
-              Заново
+                    <div class="stat">
+                        <span id="wpm">0</span>
+                        <small>слов / мин</small>
+                    </div>
+
+                    <div class="stat">
+                        <span id="accuracy">100%</span>
+                        <small>точность</small>
+                    </div>
+
+                    <div class="stat">
+                        <span id="errors">0</span>
+                        <small>ошибки</small>
+                    </div>
+                </div>
+
+                <div
+                    class="typing-area"
+                    id="typing-area"
+                    tabindex="0"
+                    role="textbox"
+                    aria-label="Поле тренировки. Начните печатать показанный текст."
+                    aria-multiline="true"
+                >
+                    <div class="words" id="words"></div>
+
+                    <div class="focus-hint" id="focus-hint">
+                        Нажмите сюда и начните печатать
+                    </div>
+
+                    <input
+                        id="typing-input"
+                        type="text"
+                        inputmode="text"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        aria-hidden="true"
+                        tabindex="-1"
+                    >
+                </div>
+
+                <div class="keyboard-hint">
+                    <kbd>Enter</kbd>
+                    <span>начать заново</span>
+                </div>
+            </section>
+
+            <section class="progress-section" aria-labelledby="progress-title">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Твой прогресс</p>
+                        <h2 id="progress-title">Последние результаты</h2>
+                    </div>
+
+                    <button class="text-button" id="clear-history" type="button">
+                        Очистить историю
+                    </button>
+                </div>
+
+                <div class="progress-grid">
+                    <article class="chart-card">
+                        <div class="chart-legend">
+                            <span>
+                                <i class="legend-line"></i>
+                                Скорость
+                            </span>
+
+                            <span>
+                                <i class="legend-dot"></i>
+                                Ошибки
+                            </span>
+                        </div>
+
+                        <div class="chart-wrap">
+                            <canvas
+                                id="progress-chart"
+                                aria-label="График последних результатов"
+                            ></canvas>
+                        </div>
+                    </article>
+
+                    <article class="best-card">
+                        <span class="best-label">Личный рекорд</span>
+                        <strong id="best-wpm">-</strong>
+                        <span class="best-unit">слов в минуту</span>
+
+                        <div class="best-meta">
+                            <span>точность</span>
+                            <b id="best-accuracy">-</b>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div
+        class="result-modal"
+        id="result-modal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="result-title"
+    >
+        <div class="modal-card">
+            <button
+                class="modal-close"
+                id="modal-close"
+                type="button"
+                aria-label="Закрыть"
+            >
+                ×
             </button>
-          </div>
 
-          <div class="stats-row" aria-live="polite">
-            <div class="stat primary"><span id="timer">30</span><small>секунд</small></div>
-            <div class="stat"><span id="wpm">0</span><small>слов / мин</small></div>
-            <div class="stat"><span id="accuracy">100%</span><small>точность</small></div>
-            <div class="stat"><span id="errors">0</span><small>ошибки</small></div>
-          </div>
+            <span class="modal-badge" id="result-title">
+                Тренировка завершена
+            </span>
 
-          <div class="typing-area" id="typing-area" tabindex="0" role="textbox" aria-label="Поле тренировки. Начните печатать показанный текст." aria-multiline="true">
-            <div class="words" id="words"></div>
-            <div class="focus-hint" id="focus-hint">Нажмите сюда и начните печатать</div>
-            <input id="typing-input" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-hidden="true" tabindex="-1" />
-          </div>
+            <div class="modal-score">
+                <strong id="result-wpm">0</strong>
+                <span>слов / мин</span>
+            </div>
 
-          <div class="keyboard-hint"><kbd>Enter</kbd><span>начать заново</span></div>
-        </section>
+            <div class="modal-stats">
+                <span>
+                    Точность <b id="result-accuracy">100%</b>
+                </span>
 
-        <section class="progress-section" aria-labelledby="progress-title">
-          <div class="section-heading">
-            <div><p class="section-kicker">Твой прогресс</p><h2 id="progress-title">Последние результаты</h2></div>
-            <button class="text-button" id="clear-history" type="button">Очистить историю</button>
-          </div>
-          <div class="progress-grid">
-            <article class="chart-card">
-              <div class="chart-legend"><span><i class="legend-line"></i> Скорость</span><span><i class="legend-dot"></i> Ошибки</span></div>
-              <div class="chart-wrap"><canvas id="progress-chart" aria-label="График последних результатов"></canvas></div>
-            </article>
-            <article class="best-card">
-              <span class="best-label">Личный рекорд</span>
-              <strong id="best-wpm">-</strong>
-              <span class="best-unit">слов в минуту</span>
-              <div class="best-meta"><span>точность</span><b id="best-accuracy">-</b></div>
-            </article>
-          </div>
-        </section>
-      </main>
+                <span>
+                    Ошибки <b id="result-errors">0</b>
+                </span>
+            </div>
 
+            <button class="primary-button" id="try-again" type="button">
+                Попробовать ещё раз
+            </button>
+        </div>
     </div>
-    <div class="result-modal" id="result-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="result-title">
-      <div class="modal-card">
-        <button class="modal-close" id="modal-close" type="button" aria-label="Закрыть">×</button>
-        <span class="modal-badge">Тренировка завершена</span>
-          <div class="modal-score"><strong id="result-wpm">0</strong><span>слов / мин</span></div>
-        <div class="modal-stats"><span>Точность <b id="result-accuracy">100%</b></span><span>Ошибки <b id="result-errors">0</b></span></div>
-        <button class="primary-button" id="try-again" type="button">Попробовать ещё раз</button>
-      </div>
-    </div>
+
     <script type="module" src="/src/js/main.js"></script>
-  </body>
+</body>
 </html>
